@@ -1,5 +1,6 @@
 import React from 'react';
-import { Download, Heart } from 'lucide-react';
+import { Download } from 'lucide-react';
+import { useLatestRelease } from '../hooks/useLatestRelease';
 
 const GithubIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
   <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -8,6 +9,8 @@ const GithubIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" })
 );
 
 export const Footer: React.FC = () => {
+  const release = useLatestRelease();
+
   return (
     <footer className="bg-black border-t border-white/[0.08] py-12 text-zinc-500 text-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -21,7 +24,9 @@ export const Footer: React.FC = () => {
             </div>
             <div>
               <div className="font-bold text-sm text-white">TikTok Live TTS Studio</div>
-              <div className="text-[11px] font-mono text-zinc-400">0ms Offline Neural Voice Engine • v1.9.2</div>
+              <div className="text-[11px] font-mono text-zinc-400">
+                0ms Offline Neural Voice Engine • {release.versionTag} ({release.publishedAt})
+              </div>
             </div>
           </div>
 
@@ -42,14 +47,14 @@ export const Footer: React.FC = () => {
               rel="noreferrer"
               className="hover:text-white flex items-center gap-1.5 transition-colors"
             >
-              <span>Release Notes</span>
+              <span>Release Notes ({release.versionTag})</span>
             </a>
             <a
-              href="https://github.com/adesolabolu/tiktok-live-tts/releases/latest/download/TikTokLiveTTS-Setup.exe"
+              href={release.setupUrl}
               className="text-cyan-400 hover:text-cyan-300 flex items-center gap-1.5 transition-colors font-semibold"
             >
               <Download className="w-3.5 h-3.5" />
-              <span>Download Setup (.exe)</span>
+              <span>Download Setup ({release.setupSizeMB})</span>
             </a>
           </div>
 
@@ -58,10 +63,10 @@ export const Footer: React.FC = () => {
         {/* Disclaimer & Copyright */}
         <div className="pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-zinc-600">
           <p>
-            ⚖️ Independent open-source tool released under the MIT License. Not affiliated with, endorsed by, or sponsored by TikTok or ByteDance Ltd.
+            TikTok Live TTS Studio is an independent open-source streamer utility. TikTok is a trademark of ByteDance Ltd.
           </p>
           <p className="flex items-center gap-1">
-            Engineered with <Heart className="w-3 h-3 text-red-500 fill-current" /> for livestreamers.
+            Built for creators with local neural speech.
           </p>
         </div>
 

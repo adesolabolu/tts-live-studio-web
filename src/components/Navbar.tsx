@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Download, Menu, X } from 'lucide-react';
+import { useLatestRelease } from '../hooks/useLatestRelease';
 
 const GithubIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
   <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -9,6 +10,7 @@ const GithubIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" })
 
 export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const release = useLatestRelease();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-black/85 backdrop-blur-md border-b border-white/[0.08]">
@@ -23,7 +25,7 @@ export const Navbar: React.FC = () => {
             <span className="font-bold text-base tracking-tight text-white">TikTok Live TTS Studio</span>
             <span className="hidden sm:inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
               <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
-              v1.9.2
+              {release.versionTag}
             </span>
           </a>
         </div>
@@ -49,11 +51,11 @@ export const Navbar: React.FC = () => {
             <span>GitHub</span>
           </a>
           <a
-            href="https://github.com/adesolabolu/tiktok-live-tts/releases/latest/download/TikTokLiveTTS-Setup.exe"
+            href={release.setupUrl}
             className="btn-press flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold text-black bg-white hover:bg-zinc-200 shadow-[0_0_16px_rgba(255,255,255,0.2)] transition-all"
           >
             <Download className="w-3.5 h-3.5" />
-            <span>Download</span>
+            <span>Download ({release.versionTag})</span>
           </a>
         </div>
 
@@ -77,11 +79,11 @@ export const Navbar: React.FC = () => {
           <a href="#faq" onClick={() => setMobileMenuOpen(false)} className="py-1 hover:text-white">FAQ</a>
           <div className="pt-2 flex flex-col gap-2">
             <a
-              href="https://github.com/adesolabolu/tiktok-live-tts/releases/latest/download/TikTokLiveTTS-Setup.exe"
+              href={release.setupUrl}
               className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-bold text-black bg-white"
             >
               <Download className="w-4 h-4" />
-              <span>Download TikTokLiveTTS-Setup.exe</span>
+              <span>Download TikTokLiveTTS-Setup.exe ({release.versionTag})</span>
             </a>
             <a
               href="https://github.com/adesolabolu/tiktok-live-tts"
@@ -90,7 +92,7 @@ export const Navbar: React.FC = () => {
               className="flex items-center justify-center gap-2 w-full py-2 rounded-xl text-xs font-medium text-zinc-400 bg-white/5 border border-white/10"
             >
               <GithubIcon className="w-4 h-4" />
-              <span>View Source on GitHub</span>
+              <span>Star on GitHub</span>
             </a>
           </div>
         </div>
