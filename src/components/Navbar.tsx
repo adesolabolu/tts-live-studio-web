@@ -29,14 +29,14 @@ export const Navbar: React.FC = () => {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-page items-center justify-between px-5 sm:px-8">
-        <a href="#top" className="focus-ring flex items-center gap-2.5 rounded-lg">
+        <a href="/" className="focus-ring flex items-center gap-2.5 rounded-lg">
           <img src="/icon.png" alt="" className="h-7 w-7 rounded-md" width={28} height={28} />
-          <span className="text-[15px] font-semibold tracking-tight text-white">TikTok Live TTS</span>
+          <span className="text-[15px] font-semibold tracking-tight text-white">TTS Live Studio</span>
         </a>
 
         <nav className="hidden items-center gap-8 text-sm text-zinc-400 md:flex" aria-label="Primary">
           {LINKS.map((l) => (
-            <a key={l.href} href={l.href} className="focus-ring rounded transition-colors hover:text-white">
+            <a key={l.href} href={`/${l.href}`} className="focus-ring rounded transition-colors hover:text-white">
               {l.label}
             </a>
           ))}

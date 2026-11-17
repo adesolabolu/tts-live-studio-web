@@ -68,7 +68,7 @@ export const ProductTour: React.FC = () => {
                 <span className="h-2.5 w-2.5 rounded-full bg-zinc-700" />
                 <span className="h-2.5 w-2.5 rounded-full bg-zinc-700" />
                 <span className="h-2.5 w-2.5 rounded-full bg-zinc-700" />
-                <span className="ml-3 text-[11px] text-zinc-500">TikTok Live TTS Studio — {tab.label}</span>
+                <span className="ml-3 text-[11px] text-zinc-500">TTS Live Studio — {tab.label}</span>
               </div>
               <span className="font-mono text-[11px] text-zinc-500">1320 × 860 Desktop Window</span>
             </div>

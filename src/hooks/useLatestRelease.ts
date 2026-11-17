@@ -14,8 +14,8 @@ export interface ReleaseInfo {
 }
 
 const DEFAULT_RELEASE: ReleaseInfo = {
-  version: '1.9.7',
-  versionTag: 'v1.9.7',
+  version: '1.9.8',
+  versionTag: 'v1.9.8',
   publishedAt: 'Recently',
   setupUrl: 'https://github.com/adesolabolu/tiktok-live-tts/releases/latest/download/TikTokLiveTTS-Setup.exe',
   zipUrl: 'https://github.com/adesolabolu/tiktok-live-tts/releases/latest/download/TikTokLiveTTS-Windows.zip',
@@ -48,7 +48,7 @@ export function useLatestRelease(): ReleaseInfo {
         }
         if (!isMounted) return;
 
-        const tag = data.tag_name || 'v1.9.7';
+        const tag = data.tag_name || 'v1.9.8';
         const cleanVer = tag.replace(/^v/, '');
         
         // Find assets

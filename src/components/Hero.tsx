@@ -104,11 +104,11 @@ export const Hero: React.FC = () => {
               <span className="h-2.5 w-2.5 rounded-full bg-zinc-700" />
               <span className="h-2.5 w-2.5 rounded-full bg-zinc-700" />
               <span className="h-2.5 w-2.5 rounded-full bg-zinc-700" />
-              <span className="ml-3 text-[11px] text-zinc-500">TikTok Live TTS Studio</span>
+              <span className="ml-3 text-[11px] text-zinc-500">TTS Live Studio</span>
             </div>
             <img
               src="/shots/app-main.webp"
-              alt="TikTok Live TTS Studio dashboard, connected to a live room and reading a viewer comment aloud"
+              alt="TTS Live Studio dashboard, connected to a live room and reading a viewer comment aloud"
               width={2610}
               height={1720}
               className="block w-full"
