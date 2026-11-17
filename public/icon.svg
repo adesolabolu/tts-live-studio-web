@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" fill="none">
+  <defs>
+    <!-- Obsidian Studio Chassis Gradient -->
+    <linearGradient id="bgGrad" x1="120" y1="60" x2="904" y2="964" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#16161d"/>
+      <stop offset="45%" stop-color="#09090c"/>
+      <stop offset="100%" stop-color="#030304"/>
+    </linearGradient>
+
+    <!-- Top Specular Rim Gradient -->
+    <linearGradient id="rimGrad" x1="180" y1="64" x2="844" y2="960" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.65"/>
+      <stop offset="35%" stop-color="#ffffff" stop-opacity="0.16"/>
+      <stop offset="70%" stop-color="#ffffff" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0.45"/>
+    </linearGradient>
+
+    <!-- Ambient Core Glow -->
+    <radialGradient id="coreGlow" cx="512" cy="465" r="340" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.22"/>
+      <stop offset="55%" stop-color="#0ea5e9" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Microphone Capsule Metallic White-Cyan Gradient -->
+    <linearGradient id="micHead" x1="512" y1="220" x2="512" y2="570" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="65%" stop-color="#e0f2fe"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+
+    <!-- Cyan Accent Gradient for Cradle & Wave Bars -->
+    <linearGradient id="cyanWave" x1="512" y1="240" x2="512" y2="780" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#7dd3fc"/>
+      <stop offset="50%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+
+    <!-- Outer Live Emerald Pulse Bars -->
+    <linearGradient id="emeraldWave" x1="512" y1="340" x2="512" y2="620" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6ee7b7"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+
+    <filter id="softShadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#000000" flood-opacity="0.75"/>
+    </filter>
+
+    <filter id="cyanGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="0" stdDeviation="16" flood-color="#38bdf8" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Outer Squircle Base -->
+  <rect x="64" y="64" width="896" height="896" rx="216" fill="url(#bgGrad)"/>
+
+  <!-- Subtle Inner Acoustic Rings -->
+  <circle cx="512" cy="465" r="310" stroke="#ffffff" stroke-opacity="0.03" stroke-width="2"/>
+  <circle cx="512" cy="465" r="225" stroke="#ffffff" stroke-opacity="0.04" stroke-width="2" stroke-dasharray="8 10"/>
+
+  <!-- Ambient Radial Light -->
+  <circle cx="512" cy="465" r="340" fill="url(#coreGlow)"/>
+
+  <!-- Precision Rim Border -->
+  <rect x="68" y="68" width="888" height="888" rx="212" stroke="url(#rimGrad)" stroke-width="8"/>
+  <rect x="82" y="82" width="860" height="860" rx="198" stroke="#ffffff" stroke-opacity="0.04" stroke-width="2"/>
+
+  <!-- Symmetrical Studio Waveform Bars (Left & Right of Mic) -->
+  <g filter="url(#cyanGlow)">
+    <!-- Inner Cyan Wave Bars -->
+    <rect x="252" y="340" width="44" height="220" rx="22" fill="url(#cyanWave)"/>
+    <rect x="728" y="340" width="44" height="220" rx="22" fill="url(#cyanWave)"/>
+
+    <!-- Outer Live Emerald Wave Bars -->
+    <rect x="172" y="402" width="40" height="96" rx="20" fill="url(#emeraldWave)"/>
+    <rect x="812" y="402" width="40" height="96" rx="20" fill="url(#emeraldWave)"/>
+  </g>
+
+  <!-- Center Studio Condenser Microphone -->
+  <g filter="url(#softShadow)">
+    <!-- Capsule Body -->
+    <rect x="408" y="216" width="208" height="332" rx="104" fill="url(#micHead)"/>
+
+    <!-- Acoustic Grille Slots inside Capsule -->
+    <rect x="452" y="292" width="120" height="16" rx="8" fill="#09090c" fill-opacity="0.72"/>
+    <rect x="440" y="336" width="144" height="16" rx="8" fill="#09090c" fill-opacity="0.72"/>
+    <rect x="452" y="380" width="120" height="16" rx="8" fill="#09090c" fill-opacity="0.72"/>
+
+    <!-- U-Shaped Shockmount Cradle -->
+    <path d="M346 436 v18 c0 91.68 74.32 166 166 166 s166 -74.32 166 -166 v-18"
+          stroke="url(#cyanWave)" stroke-width="44" stroke-linecap="round"/>
+
+    <!-- Stand Stem -->
+    <path d="M512 620 v136" stroke="url(#cyanWave)" stroke-width="44" stroke-linecap="round"/>
+
+    <!-- Weighted Studio Base -->
+    <path d="M396 764 h232" stroke="#ffffff" stroke-width="44" stroke-linecap="round"/>
+  </g>
+
+  <!-- Live Status Dot Indicator (Top Right of Inner Chassis) -->
+  <circle cx="812" cy="212" r="18" fill="#10b981"/>
+  <circle cx="812" cy="212" r="30" stroke="#10b981" stroke-opacity="0.35" stroke-width="6"/>
+</svg>

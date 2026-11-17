@@ -2,73 +2,105 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+  Shape rule: interactive controls are full-pill, surfaces are 16px (rounded-2xl),
+  inner chips/inputs are 10px (rounded-[10px]). Pitch black page, zinc-950 surfaces.
+*/
+
 :root {
   color-scheme: dark;
 }
 
+html {
+  scroll-padding-top: 80px;
+}
+
 body {
-  background-color: #000000;
-  color: #ffffff;
+  background: #000;
   overflow-x: hidden;
+  font-feature-settings: 'ss01', 'cv11';
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #000000;
-}
-::-webkit-scrollbar-thumb {
-  background: #1f1f23;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #2e2e34;
+::selection {
+  background: rgba(56, 189, 248, 0.25);
+  color: #fff;
 }
 
-/* Studio Glass Card */
-.studio-card {
-  background-color: #08080a;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05), 0 8px 32px -8px rgba(0, 0, 0, 0.9);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: #1f1f23; border-radius: 999px; border: 2px solid #000; }
+::-webkit-scrollbar-thumb:hover { background: #2e2e34; }
+
+@layer components {
+  .surface {
+    @apply bg-zinc-950 border border-white/[0.07] rounded-2xl;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-black
+      transition-[transform,background-color] duration-150 hover:bg-zinc-200 active:scale-[0.98] whitespace-nowrap;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-5 py-3 text-sm font-medium text-zinc-200
+      transition-[transform,background-color,border-color] duration-150 hover:bg-white/[0.07] hover:border-white/20 active:scale-[0.98] whitespace-nowrap;
+  }
+
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-black;
+  }
 }
 
-.studio-card:hover {
-  background-color: #0e0e12;
-  border-color: rgba(255, 255, 255, 0.14);
+/* Scroll reveal: elements start slightly lowered and fade in once on screen. */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
 }
 
-/* Tactile Button Press */
-.btn-press {
-  transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.12s ease;
+/* Hero entrance */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
 }
-.btn-press:active {
-  transform: scale(0.97);
-}
+.rise { animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: var(--rise-delay, 0ms); }
 
-/* Soundwave Equalizer Animation */
-@keyframes barBounce {
-  0%, 100% { height: 3px; }
-  50% { height: 16px; }
+/* Speech waveform bars */
+@keyframes wave {
+  0%, 100% { transform: scaleY(0.25); }
+  50% { transform: scaleY(1); }
 }
-
-.eq-bar {
+.wave-bar {
   display: inline-block;
   width: 3px;
-  background-color: #38bdf8;
-  border-radius: 2px;
-  animation: barBounce 0.8s ease-in-out infinite alternate;
+  height: 100%;
+  border-radius: 999px;
+  background: currentColor;
+  transform-origin: center;
+  animation: wave 0.9s ease-in-out infinite;
 }
-.eq-bar:nth-child(2) { animation-delay: 0.15s; height: 8px; }
-.eq-bar:nth-child(3) { animation-delay: 0.3s; height: 14px; }
-.eq-bar:nth-child(4) { animation-delay: 0.45s; height: 6px; }
 
-/* Subtle Grid Background Pattern */
-.bg-studio-grid {
-  background-size: 32px 32px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+/* Overlay subtitle swap */
+@keyframes subtitle-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+.subtitle-in { animation: subtitle-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+.bg-dots {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .rise, .subtitle-in { animation: none; }
+  .wave-bar { animation: none; transform: scaleY(0.6); }
+  html { scroll-behavior: auto; }
 }

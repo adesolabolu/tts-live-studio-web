@@ -1,84 +1,83 @@
 import React, { useState } from 'react';
-import { ChevronDown, HelpCircle } from 'lucide-react';
+import { Plus } from 'lucide-react';
+import { REPO_URL, useReveal } from '../lib/ui';
+
+const FAQS = [
+  {
+    q: 'Is it safe for my TikTok account?',
+    a: 'Yes. The app only reads your public live room using your @username. It never asks for your password, stream key or cookies, and it cannot post or change anything on your account.',
+  },
+  {
+    q: 'Windows says "Windows protected your PC". Is that normal?',
+    a: 'Yes. The app is new and not yet code-signed, so SmartScreen does not recognise it. Click "More info", then "Run anyway". The full source code is public on GitHub if you want to check it first.',
+  },
+  {
+    q: 'Do I need an OpenAI, ElevenLabs or Azure key?',
+    a: 'No. The neural voices run on your own computer, so there are no API keys, subscriptions or usage limits.',
+  },
+  {
+    q: 'How do viewers hear the voice?',
+    a: 'TikTok Live Studio captures your desktop audio by default, so anything the app says goes straight to your stream. If you use a mixer such as Voicemeeter or Wave Link, choose its output in the Settings tab.',
+  },
+  {
+    q: 'How do updates work?',
+    a: 'When a new version is out, an update badge appears in the app. Click "Update & Restart" and it installs itself.',
+  },
+  {
+    q: 'Can I remove voices I do not use?',
+    a: 'Yes. Every installed voice has an Uninstall button in the Voice Store. Each one is roughly 20 to 40 MB.',
+  },
+];
 
 export const Faq: React.FC = () => {
-  const [openIdx, setOpenIdx] = useState<number | null>(0);
-
-  const faqs = [
-    {
-      q: "Is TikTok Live TTS Studio safe for my TikTok account?",
-      a: "Yes, 100% safe. The application connects strictly to your live room's public webcast stream using just your @username. It never asks for your password, stream keys, login credentials, or account cookies, and cannot interact with your account directly."
-    },
-    {
-      q: "Does it require an OpenAI, ElevenLabs, or Azure API key?",
-      a: "No API keys are required. TikTok Live TTS Studio runs a high-performance offline neural synthesis engine (Piper) directly on your local CPU. There are zero cloud subscription fees, zero recurring token costs, and no usage limits."
-    },
-    {
-      q: "How does it achieve zero delay (<30ms) speech?",
-      a: "Traditional TTS solutions send text across the internet to cloud servers, wait for audio generation, and stream it back, which takes 2–5 seconds. TikTok Live TTS Studio performs speech synthesis directly on your computer's CPU in under 30 milliseconds."
-    },
-    {
-      q: "How does audio get captured by TikTok Live Studio?",
-      a: "TikTok Live Studio captures your default Windows desktop sound automatically. When TikTok Live TTS Studio speaks, your viewers hear it instantly. If you use virtual mixers like Voicemeeter, Wave Link, GoXLR, or SteelSeries Sonar, you can choose your dedicated output channel in the Settings tab."
-    },
-    {
-      q: "How do in-app updates work?",
-      a: "Whenever an update is published, an 'Update Available' badge appears in the studio header and Settings tab. Clicking 'Update & Restart' downloads the new release and updates your app automatically."
-    },
-    {
-      q: "Can I uninstall voices I don't use to save disk space?",
-      a: "Yes. In the Voice Store tab, every installed voice model has an 'Uninstall' button that instantly frees up disk space (each model is only ~20–40MB)."
-    }
-  ];
+  const ref = useReveal<HTMLElement>();
+  const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="py-24 bg-black border-b border-white/[0.06] relative">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 mb-3">
-            <HelpCircle className="w-3.5 h-3.5" />
-            <span>COMMONLY ASKED QUESTIONS</span>
-          </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-4">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-zinc-400 text-sm sm:text-base">
-            Everything you need to know about setting up and running TikTok Live TTS Studio.
+    <section id="faq" ref={ref} className="border-t border-white/[0.07] py-24 md:py-32">
+      <div className="mx-auto grid max-w-page gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,4fr)_minmax(0,7fr)] lg:gap-20">
+        <div className="reveal lg:sticky lg:top-28 lg:self-start">
+          <h2 className="text-3xl font-semibold tracking-[-0.03em] text-white sm:text-5xl">Questions</h2>
+          <p className="mt-5 max-w-[38ch] leading-relaxed text-zinc-400">
+            Something else?{' '}
+            <a href={`${REPO_URL}/issues`} target="_blank" rel="noreferrer" className="text-white underline decoration-white/30 underline-offset-4 hover:decoration-white">
+              Open an issue on GitHub
+            </a>
+            .
           </p>
         </div>
 
-        {/* Accordion */}
-        <div className="space-y-3">
-          {faqs.map((faq, idx) => {
-            const isOpen = openIdx === idx;
+        <div className="reveal divide-y divide-white/[0.07] border-y border-white/[0.07]">
+          {FAQS.map((f, i) => {
+            const isOpen = open === i;
             return (
-              <div
-                key={idx}
-                className="studio-card rounded-xl border border-white/5 overflow-hidden transition-all"
-              >
-                <button
-                  onClick={() => setOpenIdx(isOpen ? null : idx)}
-                  className="w-full p-5 text-left flex items-center justify-between gap-4 font-semibold text-sm sm:text-base text-white hover:text-cyan-400 transition-colors"
+              <div key={f.q}>
+                <h3>
+                  <button
+                    onClick={() => setOpen(isOpen ? null : i)}
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-${i}`}
+                    className="focus-ring flex w-full items-center justify-between gap-6 py-6 text-left text-base font-medium text-white sm:text-lg"
+                  >
+                    {f.q}
+                    <Plus
+                      className={`h-5 w-5 shrink-0 text-zinc-500 transition-transform duration-300 ${isOpen ? 'rotate-45 text-white' : ''}`}
+                      strokeWidth={1.75}
+                    />
+                  </button>
+                </h3>
+                <div
+                  id={`faq-${i}`}
+                  className={`grid transition-[grid-template-rows] duration-300 ease-out ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
                 >
-                  <span>{faq.q}</span>
-                  <ChevronDown
-                    className={`w-4 h-4 text-zinc-400 shrink-0 transition-transform duration-200 ${
-                      isOpen ? 'rotate-180 text-cyan-400' : ''
-                    }`}
-                  />
-                </button>
-                {isOpen && (
-                  <div className="px-5 pb-5 text-xs sm:text-sm text-zinc-400 leading-relaxed border-t border-white/5 pt-3">
-                    {faq.a}
-                  </div>
-                )}
+                  <p className="overflow-hidden max-w-[62ch] leading-relaxed text-zinc-400">
+                    <span className="block pb-6">{f.a}</span>
+                  </p>
+                </div>
               </div>
             );
           })}
         </div>
-
       </div>
     </section>
   );
