@@ -35,7 +35,18 @@ const TABS = [
 export const ProductTour: React.FC = () => {
   const ref = useReveal<HTMLElement>();
   const [active, setActive] = useState<(typeof TABS)[number]['id']>('live');
+  const [loadedTabs, setLoadedTabs] = useState<Set<string>>(() => new Set(['live']));
   const tab = TABS.find((t) => t.id === active)!;
+
+  const selectTab = (id: (typeof TABS)[number]['id']) => {
+    setActive(id);
+    setLoadedTabs((prev) => {
+      if (prev.has(id)) return prev;
+      const next = new Set(prev);
+      next.add(id);
+      return next;
+    });
+  };
 
   return (
     <section ref={ref} className="border-t border-white/[0.07] py-24 md:py-32">
@@ -48,7 +59,7 @@ export const ProductTour: React.FC = () => {
                 key={t.id}
                 role="tab"
                 aria-selected={active === t.id}
-                onClick={() => setActive(t.id)}
+                onClick={() => selectTab(t.id)}
                 className={`focus-ring rounded-full px-4 py-2 text-sm transition-colors sm:px-5 ${
                   active === t.id ? 'bg-white font-medium text-black' : 'text-zinc-400 hover:text-white'
                 }`}
@@ -73,20 +84,23 @@ export const ProductTour: React.FC = () => {
               <span className="font-mono text-[11px] text-zinc-500">1320 × 860 Desktop Window</span>
             </div>
             <div className="relative">
-              {TABS.map((t) => (
-                <img
-                  key={t.id}
-                  src={t.src}
-                  alt={t.alt}
-                  width={2610}
-                  height={1720}
-                  loading="lazy"
-                  className={`block w-full transition-opacity duration-500 ${
-                    t.id === active ? 'relative opacity-100' : 'absolute inset-0 opacity-0'
-                  }`}
-                  aria-hidden={t.id !== active}
-                />
-              ))}
+              {TABS.map((t) => {
+                if (!loadedTabs.has(t.id)) return null;
+                return (
+                  <img
+                    key={t.id}
+                    src={t.src}
+                    alt={t.alt}
+                    width={2610}
+                    height={1720}
+                    loading={t.id === 'live' ? 'eager' : 'lazy'}
+                    className={`block w-full transition-opacity duration-500 ${
+                      t.id === active ? 'relative opacity-100' : 'absolute inset-0 opacity-0 pointer-events-none'
+                    }`}
+                    aria-hidden={t.id !== active}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>

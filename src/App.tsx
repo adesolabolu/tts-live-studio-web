@@ -10,15 +10,16 @@ import { Faq } from './components/Faq';
 import { Footer } from './components/Footer';
 import { LegalPage } from './components/LegalPage';
 
-function getCurrentRoute(): '/' | '/privacy' | '/terms' {
+function getCurrentRoute(fallback?: '/' | '/privacy' | '/terms'): '/' | '/privacy' | '/terms' {
+  if (typeof window === 'undefined') return fallback || '/';
   const path = window.location.pathname.replace(/\/+$/, '') || '/';
   if (path === '/privacy') return '/privacy';
   if (path === '/terms') return '/terms';
   return '/';
 }
 
-export const App: React.FC = () => {
-  const [route, setRoute] = useState<'/' | '/privacy' | '/terms'>(getCurrentRoute);
+export const App: React.FC<{ initialRoute?: '/' | '/privacy' | '/terms' }> = ({ initialRoute }) => {
+  const [route, setRoute] = useState<'/' | '/privacy' | '/terms'>(() => getCurrentRoute(initialRoute));
 
   useEffect(() => {
     const onPop = () => setRoute(getCurrentRoute());
