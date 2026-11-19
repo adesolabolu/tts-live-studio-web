@@ -1,7 +1,6 @@
 import React from 'react';
-import { Download } from 'lucide-react';
 import { useLatestRelease } from '../hooks/useLatestRelease';
-import { GithubIcon, REPO_URL, useReveal, WindowsIcon } from '../lib/ui';
+import { GithubIcon, REPO_URL, STORE_DEEP_LINK, STORE_WEB_URL, useReveal, WindowsIcon } from '../lib/ui';
 
 interface FooterProps {
   onNavigate?: (path: string) => void;
@@ -32,15 +31,27 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, showCta = true }) =>
               Let your chat be heard.
             </h2>
             <p className="mt-5 text-lg text-zinc-400">Free for Windows 10 and 11.</p>
-            <a href={release.setupUrl} className="btn-primary focus-ring mt-10 !px-8 !py-4 !text-base">
-              <Download className="h-5 w-5" strokeWidth={2} />
-              Download for Windows
+            <a
+              href={STORE_WEB_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="btn-primary focus-ring mt-10 !px-8 !py-4 !text-base"
+            >
+              <WindowsIcon className="h-5 w-5" />
+              Get on Microsoft Store
             </a>
             <p className="mt-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm text-zinc-500">
-              <span className="inline-flex items-center gap-1.5">
+              <a
+                href={STORE_DEEP_LINK}
+                className="inline-flex items-center gap-1.5 underline decoration-white/20 underline-offset-4 hover:text-zinc-300"
+              >
                 <WindowsIcon className="h-3.5 w-3.5" />
-                {release.versionTag} · {release.setupSizeMB}
-              </span>
+                Open in Store app
+              </a>
+              <span aria-hidden="true">·</span>
+              <a href={release.setupUrl} className="underline decoration-white/20 underline-offset-4 hover:text-zinc-300">
+                Direct .exe ({release.versionTag} · {release.setupSizeMB})
+              </a>
               <span aria-hidden="true">·</span>
               <a href={release.zipUrl} className="underline decoration-white/20 underline-offset-4 hover:text-zinc-300">
                 Portable .zip

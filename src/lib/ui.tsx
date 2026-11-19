@@ -31,6 +31,8 @@ export function useReveal<T extends HTMLElement>() {
 }
 
 export const REPO_URL = 'https://github.com/adesolabolu/tiktok-live-tts';
+export const STORE_WEB_URL = 'https://apps.microsoft.com/detail/9N5RB7965L3D';
+export const STORE_DEEP_LINK = 'ms-windows-store://pdp/?productid=9N5RB7965L3D';
 
 export const GithubIcon: React.FC<{ className?: string }> = ({ className = 'w-4 h-4' }) => (
   <svg className={className} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">

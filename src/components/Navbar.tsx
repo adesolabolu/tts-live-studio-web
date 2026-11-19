@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Download, Menu, X } from 'lucide-react';
-import { useLatestRelease } from '../hooks/useLatestRelease';
-import { GithubIcon, REPO_URL } from '../lib/ui';
+import { Menu, X } from 'lucide-react';
+import { GithubIcon, REPO_URL, STORE_WEB_URL, WindowsIcon } from '../lib/ui';
 
 const LINKS = [
   { href: '#how', label: 'How it works' },
@@ -13,7 +12,6 @@ const LINKS = [
 export const Navbar: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const release = useLatestRelease();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -52,9 +50,14 @@ export const Navbar: React.FC = () => {
           >
             <GithubIcon className="h-[18px] w-[18px]" />
           </a>
-          <a href={release.setupUrl} className="btn-primary focus-ring !px-4 !py-2">
-            <Download className="h-4 w-4" strokeWidth={2} />
-            Download for Windows
+          <a
+            href={STORE_WEB_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="btn-primary focus-ring !px-4 !py-2"
+          >
+            <WindowsIcon className="h-4 w-4" />
+            Get on Microsoft Store
           </a>
         </div>
 
@@ -82,9 +85,14 @@ export const Navbar: React.FC = () => {
               </a>
             ))}
           </nav>
-          <a href={release.setupUrl} className="btn-primary mt-5 w-full">
-            <Download className="h-4 w-4" />
-            Download for Windows
+          <a
+            href={STORE_WEB_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="btn-primary mt-5 w-full"
+          >
+            <WindowsIcon className="h-4 w-4" />
+            Get on Microsoft Store
           </a>
         </div>
       )}

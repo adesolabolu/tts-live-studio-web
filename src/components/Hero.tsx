@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Download } from 'lucide-react';
 import { useLatestRelease } from '../hooks/useLatestRelease';
-import { GithubIcon, REPO_URL, Wave } from '../lib/ui';
+import { GithubIcon, REPO_URL, STORE_DEEP_LINK, STORE_WEB_URL, Wave, WindowsIcon } from '../lib/ui';
 
 const DEMO_CHAT = [
   { user: 'sarah_cozy', text: 'bro your gameplay is actually so insane today', level: 12 },
@@ -86,15 +86,46 @@ export const Hero: React.FC = () => {
             className="rise mt-9 flex flex-col gap-3 sm:flex-row"
             style={{ ['--rise-delay' as string]: '240ms' }}
           >
-            <a href={release.setupUrl} className="btn-primary focus-ring !px-7 !py-3.5">
-              <Download className="h-[18px] w-[18px]" strokeWidth={2} />
-              Download for Windows
+            <a
+              href={STORE_WEB_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="btn-primary focus-ring !px-7 !py-3.5"
+            >
+              <WindowsIcon className="h-[18px] w-[18px]" />
+              Get on Microsoft Store
             </a>
             <a href={REPO_URL} target="_blank" rel="noreferrer" className="btn-ghost focus-ring !py-3.5">
               <GithubIcon className="h-4 w-4" />
               View on GitHub
             </a>
           </div>
+          <p
+            className="rise mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-zinc-500"
+            style={{ ['--rise-delay' as string]: '300ms' }}
+          >
+            <a
+              href={STORE_DEEP_LINK}
+              className="underline decoration-white/20 underline-offset-4 hover:text-zinc-300"
+            >
+              Open in Store app
+            </a>
+            <span aria-hidden="true">·</span>
+            <a
+              href={release.setupUrl}
+              className="inline-flex items-center gap-1 underline decoration-white/20 underline-offset-4 hover:text-zinc-300"
+            >
+              <Download className="h-3 w-3" />
+              Direct .exe ({release.versionTag})
+            </a>
+            <span aria-hidden="true">·</span>
+            <a
+              href={release.zipUrl}
+              className="underline decoration-white/20 underline-offset-4 hover:text-zinc-300"
+            >
+              Portable .zip
+            </a>
+          </p>
         </div>
 
         {/* Product */}
